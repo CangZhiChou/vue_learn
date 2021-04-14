@@ -20,7 +20,7 @@ export default function createElement(vnode) {
     for (let ch of vnode.children) {
       // 递归调用 创建出它的DOM，一旦调用createElement意味着创建出DOM了。并且它的elm属性指向了创建出的dom，但是没有上树，是一个孤儿节点
       let chDOM = createElement(ch);
-      console.log(ch);
+      // console.log(ch);
       // 上树
       domNode.appendChild(chDOM);
     }
