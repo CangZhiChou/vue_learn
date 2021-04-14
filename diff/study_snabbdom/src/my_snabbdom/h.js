@@ -1,5 +1,6 @@
 import vnode from "./vnode";
 /**
+ * 产生虚拟DOM树
  * 低配版本的h函数，这个函数必须接受三个参数，缺一不可
  * @param {*} sel
  * @param {*} data
@@ -16,22 +17,22 @@ export default function (sel, data, c) {
   }
   // 检查参数c的类型
   if (typeof c === "string" || typeof c === "number") {
-    // 说明现在是 ①
+    // 说明现在是 ① h('div', {}, '文字')
     return vnode(sel, data, undefined, c, undefined);
   } else if (Array.isArray(c)) {
-    // 说明是 ②
+    // 说明是 ② h('div', {}, [])
     let children = [];
     // 遍历c
     for (let i = 0; i < c.length; i++) {
       if (!(typeof c[i] === "object") && c[i].hasOwnProperty("sel")) {
         throw new Error("传入的数组有不是h函数的项");
       }
-      // 不用执行c[i], 只要收集
+      // 不用执行c[i], 调用的时候执行了，只要收集
       children.push(c[i]);
     }
     return vnode(sel, data, children, undefined, undefined);
   } else if (typeof c === "object" && c.hasOwnProperty("sel")) {
-    // 说明是 ③
+    // 说明是 ③ h('div', {}, h())
     let children = [c];
     return vnode(sel, data, children, undefined, undefined);
   } else {

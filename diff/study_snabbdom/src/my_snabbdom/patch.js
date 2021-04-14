@@ -6,20 +6,27 @@ export default function (oldVnode, newVnode) {
   if (oldVnode.sel == "" || oldVnode.sel === undefined) {
     // 说明是DOM节点，此时要包装成虚拟节点
     oldVnode = vnode(
-      oldVnode.tagName.toLowerCase(),
-      {},
-      [],
-      undefined,
-      oldVnode
+      oldVnode.tagName.toLowerCase(), // sel
+      {}, // data
+      [], // children
+      undefined, // text
+      oldVnode // elm
     );
   }
   // 判断 oldVnode 和 newVnode 是不是同一个节点
   if (oldVnode.key === newVnode.key && oldVnode.sel === newVnode.sel) {
     console.log("是同一个节点，需要精细化比较");
   } else {
-    console.log("不是同一个节点，暴力插入新的，删除旧的");
-    let newVnodeElm = createElement(newVnode, oldVnode.elm);
-    // 插入到老节点之前
-    oldVnode.elm.parentNode.insertBefore(newVnodeElm, oldVnode.elm);
+    console.log("不是同一个节点，暴力插入新节点，删除旧节点");
+    // 创建 新虚拟节点 为 DOM节点
+    let newVnodeElm = createElement(newVnode);
+    let oldVnodeElm = oldVnode.elm;
+    // 插入 新节点 到 旧节点 之前
+    if (newVnodeElm) {
+      // 判断newVnodeElm是存在的
+      oldVnodeElm.parentNode.insertBefore(newVnodeElm, oldVnodeElm);
+    }
+    // 删除旧节点
+    oldVnodeElm.parentNode.removeChild(oldVnodeElm);
   }
 }
