@@ -1,4 +1,5 @@
 import createElement from "./createElement";
+import updateChildren from "./updateChildren";
 
 export default function patchVnode(oldVnode, newVnode) {
   // 1. 判断新旧 vnode 是否是同一个对象
@@ -19,30 +20,8 @@ export default function patchVnode(oldVnode, newVnode) {
     // newVnode 没有text属性 有children属性
     // 2.2 判断 oldVnode 有没有 children 属性
     if (oldVnode.children !== undefined && oldVnode.children.length > 0) {
-      // oldVnode有children属性 最复杂的情况，新老节点都有children
-      // 所有未处理的节点的开头
-      let un = 0;
-      for (let newCh of newVnode.children) {
-        let isExist = false;
-        for (let oldCh of oldVnode.children) {
-          if (oldCh.sel === newCh.sel && oldCh.key === newCh.key) {
-            isExist = true;
-          }
-        }
-        if (!isExist) {
-          console.log(newCh);
-          let dom = createElement(newCh);
-          newCh.elm = dom;
-          if (un < oldVnode.children.length) {
-            oldVnode.elm.insertBefore(dom, oldVnode.children[un].elm);
-          } else {
-            oldVnode.elm.appendChild(dom);
-          }
-        } else {
-          // 让处理的节点指针下移
-          un++;
-        }
-      }
+      // oldVnode有children属性 最复杂的情况，新老节点都有childrenB
+      updateChildren(oldVnode.elm, oldVnode.children, newVnode.children);
     } else {
       // oldVnode没有children属性 说明有text;  newVnode有children属性
       // 清空oldVnode的内容
