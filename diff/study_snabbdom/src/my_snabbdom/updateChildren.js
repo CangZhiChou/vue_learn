@@ -61,7 +61,7 @@ export default function updateChildren(parentElm, oldCh, newCh) {
       // 新后与旧前
       console.log(" ③3 新后与旧前 命中");
       patchVnode(oldStartVnode, newEndVnode);
-      // 当③新后与旧前命中的时候，此时要移动节点。移动新前指向的这个节点到老节点的 旧后的后面
+      // 当③新后与旧前命中的时候，此时要移动节点。移动 新后（旧前） 指向的这个节点到老节点的 旧后的后面
       // 移动节点：只要插入一个已经在DOM树上 的节点，就会被移动
       parentElm.insertBefore(oldStartVnode.elm, oldEndVnode.elm.nextSibling);
       oldStartVnode = oldCh[++oldStartIdx];
@@ -70,7 +70,7 @@ export default function updateChildren(parentElm, oldCh, newCh) {
       // 新前与旧后
       console.log(" ④4 新前与旧后 命中");
       patchVnode(oldEndVnode, newStartVnode);
-      // 当④新前与旧后命中的时候，此时要移动节点。移动新前指向的这个节点到老节点的 旧前的前面
+      // 当④新前与旧后命中的时候，此时要移动节点。移动 新前（旧后） 指向的这个节点到老节点的 旧前的前面
       // 移动节点：只要插入一个已经在DOM树上的节点，就会被移动
       parentElm.insertBefore(oldEndVnode.elm, oldStartVnode.elm);
       oldEndVnode = oldCh[--oldEndIdx];
