@@ -15,10 +15,13 @@ const myVnode1 = h("ul", {}, [
 patch(container, myVnode1);
 
 const myVnode2 = h("ul", {}, [
-  h("li", { key: "A" }, "Aaaaa"),
-  h("li", { key: "B" }, "B"),
   h("li", { key: "C" }, "C"),
+  h("li", { key: "B" }, "B"),
+  h("li", { key: "E" }, "E"),
+  h("li", { key: "M" }, "M"),
+  h("li", { key: "E" }, "E"),
   h("li", { key: "D" }, "D"),
+  h("li", { key: "M" }, "M"),
 ]);
 
 btn.onclick = function () {
