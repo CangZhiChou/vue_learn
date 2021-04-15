@@ -1,7 +1,7 @@
 import createElement from "./createElement";
 import updateChildren from "./updateChildren";
 /**
- * 
+ * 精细化比较两个节点 并用newVnode替换oldVnode
  * @param {*} oldVnode 
  * @param {*} newVnode 
  * @returns 

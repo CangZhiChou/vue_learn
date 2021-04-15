@@ -1,6 +1,11 @@
 import createElement from "./createElement";
 import patchVnode from "./patchVnode";
-
+/**
+ * 
+ * @param {object} parentElm Dom节点
+ * @param {Array} oldCh oldVnode的子节点数组
+ * @param {Array} newCh newVnode的子节点数组
+ */
 export default function updateChildren(parentElm, oldCh, newCh) {
   console.log("updateChildren()");
   console.log(oldCh, newCh);
@@ -15,7 +20,7 @@ export default function updateChildren(parentElm, oldCh, newCh) {
   // 新后
   let newEndIdx = newCh.length - 1;
 
-  // 四个节点
+  // 指针指向的四个节点
   // 旧前节点
   let oldStartVnode = oldCh[0];
   // 旧后节点
@@ -28,7 +33,7 @@ export default function updateChildren(parentElm, oldCh, newCh) {
   let keyMap = null;
 
   while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
-    console.log("***");
+    console.log("**循环中**");
     // 首先应该不是判断四种命中，而是略过已经加了undefined标记的项
     if (oldStartVnode === null || oldCh[oldStartIdx] === undefined) {
       oldStartVnode = oldCh[++oldStartIdx];
@@ -41,7 +46,9 @@ export default function updateChildren(parentElm, oldCh, newCh) {
     } else if (checkSameVnode(oldStartVnode, newStartVnode)) {
       // 新前与旧前
       console.log(" ①1 新前与旧前 命中");
+      // 精细化比较两个节点 oldStartVnode现在和newStartVnode一样了
       patchVnode(oldStartVnode, newStartVnode);
+      // 移动指针，改变指针指向的节点，这表示这两个节点都处理（比较）完了
       oldStartVnode = oldCh[++oldStartIdx];
       newStartVnode = newCh[++newStartIdx];
     } else if (checkSameVnode(oldEndVnode, newEndVnode)) {
