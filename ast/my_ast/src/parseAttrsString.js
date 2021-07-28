@@ -4,9 +4,11 @@
  */
 export default function parseAttrsString(attrsString) {
   let result = [];
+  // 当前是否在引号内
   let isQuote = false;
   let point = 0;
   if (attrsString === undefined) return [];
+
   for (let i = 0; i < attrsString.length; i++) {
     let char = attrsString[i];
     if (char === '"') {
@@ -29,7 +31,7 @@ export default function parseAttrsString(attrsString) {
     const o = item.match(/^(.+)="(.+)"$/);
     return {
       name: o[1],
-      value: o[2]
+      value: o[2],
     };
   });
 
